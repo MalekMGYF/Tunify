@@ -1,0 +1,80 @@
+// Prisma schema for the Tunify release management platform.
+// Run `npx prisma generate` after editing, and `npx prisma migrate dev`
+// to apply changes to your database.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ReleaseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([email])
+}
+
+model Release {
+  id            String        @id @default(cuid())
+  version       String
+  // Version broken into comparable integer parts so ordering is never
+  // done with a naive string sort (e.g. "1.9.0" incorrectly sorting
+  // after "1.10.0"). Populated from `version` on every create/update.
+  versionMajor  Int           @default(0)
+  versionMinor  Int           @default(0)
+  versionPatch  Int           @default(0)
+
+  title         String
+  description   String        @default("")
+  changelog     String        @default("")
+  platform      String
+
+  fileName      String
+  storagePath   String
+  fileSize      Int
+  mimeType      String
+
+  status        ReleaseStatus @default(DRAFT)
+  // Only one release per platform may have isCurrent = true.
+  // Enforced in application logic inside a DB transaction — see
+  // src/lib/db/releases.ts `setCurrentRelease`.
+  isCurrent     Boolean       @default(false)
+
+  downloadCount Int           @default(0)
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  publishedAt   DateTime?
+
+  @@index([platform, isCurrent])
+  @@index([status])
+  @@index([versionMajor, versionMinor, versionPatch])
+}
+
+// Singleton row (id always "settings") holding admin-editable public info.
+model Settings {
+  id                 String   @id @default("settings")
+  appName            String   @default("Tunify")
+  description        String   @default("A modern music player, built for speed and focus.")
+  websiteTitle       String   @default("Tunify — Your Music. Your Way.")
+  supportedPlatforms String[] @default(["Windows"])
+  socialTwitter      String   @default("")
+  socialGithub       String   @default("")
+  socialDiscord      String   @default("")
+  contactEmail       String   @default("")
+  updatedAt          DateTime @updatedAt
+}
