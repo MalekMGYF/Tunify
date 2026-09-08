@@ -14,8 +14,6 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
  * Requires:
  *   /public/founders/founder-1.png
  *   /public/founders/founder-2.png
- * (already included in this delivery — just copy the whole
- * public/founders folder into your project's /public folder)
  */
 export default function FoundersSection() {
   const { ref, visible } = useScrollReveal({ threshold: 0.2 });
@@ -31,7 +29,6 @@ export default function FoundersSection() {
         if (el) {
           const rect = el.getBoundingClientRect();
           const vh = window.innerHeight || 1;
-          // -1 (section far below) .. 1 (section far above) roughly, clamped
           const progress = Math.max(-1, Math.min(1, 1 - rect.top / vh));
           setParallax(progress);
         }
@@ -58,6 +55,7 @@ export default function FoundersSection() {
         </h2>
 
         <div className="founders__stage">
+          {/* Left: Adam (grey cap) */}
           <figure
             className="founders__portrait founders__portrait--left"
             style={{
@@ -65,15 +63,15 @@ export default function FoundersSection() {
             }}
           >
             <Image
-              src="/founders/founder-1.png"
-              alt="أحد مؤسسي تيونيفاي"
+              src="/founders/founder-2.png"
+              alt="آدم، المؤسس التاني لتيونيفاي"
               width={640}
               height={900}
               className="founders__img"
               priority
             />
             <figcaption className="founders__caption">
-              <span className="founders__name">المؤسس الأول</span>
+              <span className="founders__name">آدم</span>
               <span className="founders__role">Co-Founder</span>
             </figcaption>
           </figure>
@@ -82,6 +80,7 @@ export default function FoundersSection() {
             <span className="founders__divider-line" />
           </div>
 
+          {/* Right: Malek (white cap) */}
           <figure
             className="founders__portrait founders__portrait--right"
             style={{
@@ -89,15 +88,15 @@ export default function FoundersSection() {
             }}
           >
             <Image
-              src="/founders/founder-2.png"
-              alt="المؤسس الثاني لتيونيفاي"
+              src="/founders/founder-1.png"
+              alt="مالك، مؤسس تيونيفاي"
               width={640}
               height={900}
               className="founders__img founders__img--flip"
               priority
             />
             <figcaption className="founders__caption">
-              <span className="founders__name">المؤسس التاني</span>
+              <span className="founders__name">مالك</span>
               <span className="founders__role">Co-Founder</span>
             </figcaption>
           </figure>
@@ -152,7 +151,7 @@ export default function FoundersSection() {
           display: grid;
           grid-template-columns: 1fr auto 1fr;
           align-items: end;
-          gap: clamp(1rem, 3vw, 2.5rem);
+          gap: clamp(0.5rem, 3vw, 2.5rem);
         }
 
         .founders__portrait {
@@ -161,6 +160,7 @@ export default function FoundersSection() {
           flex-direction: column;
           align-items: center;
           will-change: transform;
+          min-width: 0;
         }
 
         .founders__portrait--left {
@@ -203,9 +203,6 @@ export default function FoundersSection() {
           filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55));
         }
 
-        /* Mirrors the right-hand founder so both portraits appear to
-           face inward, toward each other. Remove this rule if it looks
-           wrong once you see your real photos in place. */
         .founders__img--flip {
           transform: scaleX(-1);
         }
@@ -249,30 +246,28 @@ export default function FoundersSection() {
           opacity: 0.5;
         }
 
+        /* Mobile: keep the two portraits side by side, just hide the
+           intro copy so the photos are the whole story on small screens. */
         @media (max-width: 720px) {
+          .founders__eyebrow,
+          .founders__headline {
+            display: none;
+          }
+
           .founders__stage {
-            grid-template-columns: 1fr;
-            justify-items: center;
-            gap: 0.5rem;
+            gap: 0.25rem;
           }
-          .founders__portrait--left,
-          .founders__portrait--right {
-            justify-self: center;
+
+          .founders__img {
+            max-width: 100%;
           }
-          .founders__divider {
-            width: 60%;
-            height: 1px;
+
+          .founders__name {
+            font-size: 0.85rem;
           }
-          .founders__divider-line {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(
-              to right,
-              transparent,
-              #d4a657 40%,
-              #d4a657 60%,
-              transparent
-            );
+
+          .founders__role {
+            font-size: 0.7rem;
           }
         }
 
