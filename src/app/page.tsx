@@ -8,6 +8,7 @@ import DownloadSection from "@/components/public/DownloadSection";
 import InstallationSteps from "@/components/public/InstallationSteps";
 import FAQ from "@/components/public/FAQ";
 import Footer from "@/components/public/Footer";
+import FoundersSection from "@/components/FoundersSection";
 import { getSettings } from "@/lib/db/settings";
 import { getCurrentRelease, toPublicRelease } from "@/lib/db/releases";
 
@@ -19,6 +20,7 @@ export default async function Home() {
     <div className="min-h-screen bg-ink-950">
       <Navbar appName={settings.appName} />
       <main>
+        <FoundersSection />
         <Hero appName={settings.appName} description={settings.description} platforms={settings.supportedPlatforms} />
         <Features />
         <AppPreview />
@@ -35,4 +37,4 @@ export default async function Home() {
       />
     </div>
   );
-}
+      }
