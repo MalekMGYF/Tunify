@@ -1,0 +1,37 @@
+/* Add these lines to your existing app/globals.css (don't replace the
+   whole file — just merge this in near the top, inside :root/html/body
+   rules if you already have them). This gives the whole site the
+   smooth "heavy" scroll feel, not just the founders section. */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optional: reusable reveal-on-scroll utility for OTHER sections.
+   Pair it with the useScrollReveal hook (see hooks/useScrollReveal.js):
+
+     const { ref, visible } = useScrollReveal();
+     <div ref={ref} className={`reveal ${visible ? "is-visible" : ""}`}>
+
+   Use this on 2–3 more key sections max (e.g. the hero stats, the
+   pricing/CTA block) — sprinkling it on every single section makes a
+   page feel busy instead of intentional. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
