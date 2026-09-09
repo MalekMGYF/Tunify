@@ -26,13 +26,13 @@ export default function Hero({
           <p className="mt-6 text-lg leading-relaxed text-mist-300">{description}</p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a
+            
               href="/api/releases/latest/download"
               className="inline-flex items-center justify-center rounded-full bg-tunify-gradient px-7 py-3.5 text-base font-semibold text-white shadow-glow transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               Download {appName}
             </a>
-            <a
+            
               href="#features"
               className="inline-flex items-center justify-center rounded-full border border-white/15 px-7 py-3.5 text-base font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
             >
@@ -54,11 +54,13 @@ export default function Hero({
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-light" />
               </div>
 
-              <div className="mt-5 aspect-square w-full rounded-2xl bg-tunify-gradient" />
+              <div className="mt-5 aspect-square w-full overflow-hidden rounded-2xl bg-tunify-gradient">
+                <img src="/album-cover.png" alt="Racore by Marwan Pablo" className="h-full w-full object-cover" />
+              </div>
 
               <div className="mt-5">
-                <p className="font-display text-base font-semibold text-mist-100">Midnight Static</p>
-                <p className="mt-0.5 text-sm text-mist-400">Nova Fields</p>
+                <p className="font-display text-base font-semibold text-mist-100">Racore</p>
+                <p className="mt-0.5 text-sm text-mist-400">Marwan Pablo</p>
               </div>
 
               <div className="mt-4 h-1 w-full rounded-full bg-white/10">
