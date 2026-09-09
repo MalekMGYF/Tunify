@@ -26,13 +26,13 @@ export default function Hero({
           <p className="mt-6 text-lg leading-relaxed text-mist-300">{description}</p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            
+            <a
               href="/api/releases/latest/download"
               className="inline-flex items-center justify-center rounded-full bg-tunify-gradient px-7 py-3.5 text-base font-semibold text-white shadow-glow transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               Download {appName}
             </a>
-            
+            <a
               href="#features"
               className="inline-flex items-center justify-center rounded-full border border-white/15 px-7 py-3.5 text-base font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
             >
