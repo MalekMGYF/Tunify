@@ -60,9 +60,9 @@ export default function DownloadSection({ appName, release }: { appName: string;
                   )}
                 </>
               ) : (
-                <p className="mt-8 max-w-sm text-sm text-mist-400">
-                  No release is published yet. Once an admin publishes one, it will appear here automatically.
-                </p>
+                <div className="mt-8 max-w-sm">
+                  <DetailRow label="Platform" value="Android" />
+                </div>
               )}
 
               <div className="mt-6">
@@ -79,13 +79,7 @@ export default function DownloadSection({ appName, release }: { appName: string;
             <div className="flex flex-col items-stretch gap-4 sm:items-center lg:items-stretch">
               <a
                 href="/api/releases/latest/download"
-                aria-disabled={!release}
-                className={`inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-lg font-semibold text-white shadow-glow transition-transform ${
-                  release ? "bg-tunify-gradient hover:scale-[1.02] active:scale-[0.98]" : "cursor-not-allowed bg-ink-700 opacity-60"
-                }`}
-                onClick={(e) => {
-                  if (!release) e.preventDefault();
-                }}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-tunify-gradient px-8 py-4 text-lg font-semibold text-white shadow-glow transition-transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Download className="h-5 w-5" />
                 Download {appName}
