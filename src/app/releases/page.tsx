@@ -1,11 +1,13 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
-import { Download } from "lucide-react";
+import { Download, ExternalLink } from "lucide-react";
 import Navbar from "@/components/public/Navbar";
 import Footer from "@/components/public/Footer";
 import { getSettings } from "@/lib/db/settings";
 import { listPublishedReleases } from "@/lib/db/releases";
+
+const GITHUB_RELEASES_URL = "https://github.com/MalekMGYF/Tunify/releases";
 
 function formatBytes(bytes: number): string {
   if (!bytes) return "—";
@@ -33,7 +35,20 @@ export default async function ReleasesPage() {
           </p>
 
           {releases.length === 0 ? (
-            <p className="mt-14 text-mist-400">No releases have been published yet.</p>
+            <div className="mt-14 rounded-2xl border border-white/8 bg-ink-900/60 p-8">
+              <p className="text-mist-300">
+                Release notes and version history are published on GitHub Releases.
+              </p>
+              <a
+                href={GITHUB_RELEASES_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm text-violet-light underline decoration-white/20 underline-offset-4 hover:text-mist-100 hover:decoration-white/40"
+              >
+                View releases on GitHub
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
           ) : (
             <div className="mt-14 grid gap-6">
               {releases.map((release) => (
